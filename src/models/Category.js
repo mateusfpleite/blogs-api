@@ -1,13 +1,17 @@
 const CategoryModel = (sequelize, DataTypes) => {
-    const Category = sequelize.define('Category', {
-      id: DataTypes.INTEGER,
-      name: DataTypes.STRING,
+  const Category = sequelize.define('Category', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
     },
-    {timestamps: false,
-    tableName: 'categories'});
-  
-    return Category;
-  };
-  
-  module.exports = CategoryModel;
-  
+    name: DataTypes.STRING,
+  },
+    {
+      timestamps: false,
+      tableName: 'categories'
+    });
+
+  return Category;
+};
+
+module.exports = CategoryModel;
