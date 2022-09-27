@@ -4,8 +4,6 @@ const createUserValidation = require('./middlewares/createUserValidation');
 const validateLogin = require('./middlewares/loginValidation');
 const tokenValidation = require('./middlewares/tokenValidation');
 
-// ...
-
 const app = express();
 
 app.use(express.json());
