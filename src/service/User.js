@@ -24,4 +24,9 @@ const createUser = async (displayName, email, password, image = null) => {
     return { type: null, message: newToken };
 };
 
-module.exports = { getUser, createUser };
+const getAllUsers = async () => {
+    const result = await User.findAll();
+    return result.map(({ id, displayName, email, image }) => ({ id, displayName, email, image }));
+};
+
+module.exports = { getUser, createUser, getAllUsers };
