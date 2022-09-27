@@ -14,6 +14,8 @@ app.post('/user', createUserValidation, User.createUser);
 
 app.get('/user', tokenValidation, User.getAllUsers);
 
+app.get('/user/:id', tokenValidation, User.getUserById);
+
 // ...
 
 // É importante exportar a constante `app`,
