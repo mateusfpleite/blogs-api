@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('./controller/User');
 const createUserValidation = require('./middlewares/createUserValidation');
 const validateLogin = require('./middlewares/loginValidation');
+const tokenValidation = require('./middlewares/tokenValidation');
 
 // ...
 
@@ -12,6 +13,8 @@ app.use(express.json());
 app.post('/login', validateLogin, User.getUser);
 
 app.post('/user', createUserValidation, User.createUser);
+
+app.get('/user', tokenValidation, User.getAllUsers);
 
 // ...
 
