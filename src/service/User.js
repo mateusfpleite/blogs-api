@@ -30,4 +30,11 @@ const getAllUsers = async () => {
     return result.map(({ id, displayName, email, image }) => ({ id, displayName, email, image }));
 };
 
-module.exports = { getUser, createUser, getAllUsers };
+const getUserById = async (id) => {
+    const result = await User.findByPk(id, { attributes: { exclude: ['password'] } });
+    console.log(result);
+    if (!result) { return { type: 'NOT_FOUND', message: 'User does not exist' }; }
+    return { type: null, message: result };
+};
+
+module.exports = { getUser, createUser, getAllUsers, getUserById };
