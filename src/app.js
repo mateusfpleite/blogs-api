@@ -20,6 +20,8 @@ app.get('/user/:id', tokenValidation, User.getUserById);
 
 app.post('/categories', createCategoryValidation, tokenValidation, Category.createCategory);
 
+app.get('/categories', tokenValidation, Category.getAllCategories);
+
 // ...
 
 // É importante exportar a constante `app`,
