@@ -8,9 +8,20 @@ const getUser = async (email, password) => {
             password,
         },
     });
-    if (result === null) { return { type: 'BAD_REQUEST', message: 'Invalid fields' }; }
+    if (!result) { return { type: 'BAD_REQUEST', message: 'Invalid fields' }; }
     const newToken = tokenGenerator(email);
     return { type: null, message: newToken };
 };
 
-module.exports = { getUser };
+const createUser = async (displayName, email, password, image = null) => {
+    const checkDuplicate = await User.findOne({ where: { email } });
+    if (checkDuplicate) {
+ return { type: 'CONFLICT', message: 'User already registered',
+}; 
+}
+    await User.create({ displayName, email, password, image });
+    const newToken = tokenGenerator(email);
+    return { type: null, message: newToken };
+};
+
+module.exports = { getUser, createUser };
