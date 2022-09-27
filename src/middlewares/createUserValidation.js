@@ -6,7 +6,7 @@ const createUserValidation = (req, res, next) => {
     if (displayName.length < minNameLength) {
         return res.status(400).json(
             { message: '"displayName" length must be at least 8 characters long' },
-);
+        );
     }
     if (!emailValidation) {
         return res.status(400).json({ message: '"email" must be a valid email' });
@@ -14,7 +14,7 @@ const createUserValidation = (req, res, next) => {
     if (password.length < minPasswordLength) {
         return res.status(400).json(
             { message: '"password" length must be at least 6 characters long' },
-);
+        );
     }
     return next();
 };

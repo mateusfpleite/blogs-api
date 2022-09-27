@@ -2,7 +2,7 @@ const { User } = require('../models');
 const tokenGenerator = require('../utils/tokengenerator');
 
 const getUser = async (email, password) => {
-   const result = await User.findOne({
+    const result = await User.findOne({
         where: {
             email,
             password,
@@ -16,9 +16,10 @@ const getUser = async (email, password) => {
 const createUser = async (displayName, email, password, image = null) => {
     const checkDuplicate = await User.findOne({ where: { email } });
     if (checkDuplicate) {
- return { type: 'CONFLICT', message: 'User already registered',
-}; 
-}
+        return {
+            type: 'CONFLICT', message: 'User already registered',
+        };
+    }
     await User.create({ displayName, email, password, image });
     const newToken = tokenGenerator(email);
     return { type: null, message: newToken };
