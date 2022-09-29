@@ -8,4 +8,23 @@ const createBlogPost = async (req, res) => {
     return res.status(201).json({ ...result.message.dataValues, id });
 };
 
-module.exports = { createBlogPost };
+const getAllPosts = async (req, res) => {
+    const result = await BlogPostService.getAllPosts(req.params.id);
+    return res.status(200).json(result);
+};
+
+const getPostById = async (req, res) => {
+    const result = await BlogPostService.getPostById(req.params.id);
+    if (!result) { return res.status(404).json({ message: 'Post does not exist' }); }
+    return res.status(200).json(result);
+};
+
+const updatePost = async (req, res) => {
+    const { id } = req.params;
+    const email = req.headers.user;
+    const update = await BlogPostService.updatePost({ id, email, ...req.body });
+    if (update.type) { return res.status(401).json({ message: update.message }); }
+    getPostById(req, res);
+};
+
+module.exports = { createBlogPost, getPostById, getAllPosts, updatePost };
