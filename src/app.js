@@ -7,6 +7,7 @@ const createCategoryValidation = require('./middlewares/createCategoryValidation
 const validateLogin = require('./middlewares/loginValidation');
 const tokenValidation = require('./middlewares/tokenValidation');
 const validateBlogPostFields = require('./middlewares/createBlogPostValidation');
+const validateUpdateBlogPost = require('./middlewares/updateBlogPostValidation');
 
 const app = express();
 
@@ -25,6 +26,12 @@ app.post('/categories', createCategoryValidation, tokenValidation, Category.crea
 app.get('/categories', tokenValidation, Category.getAllCategories);
 
 app.post('/post', validateBlogPostFields, tokenValidation, BlogPost.createBlogPost);
+
+app.get('/post', tokenValidation, BlogPost.getAllPosts);
+
+app.get('/post/:id', tokenValidation, BlogPost.getPostById);
+
+app.put('/post/:id', validateUpdateBlogPost, tokenValidation, BlogPost.updatePost);
 
 // ...
 
