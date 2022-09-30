@@ -63,10 +63,19 @@ const getPostById = async (id) => {
 const updatePost = async ({ id, email, title, content }) => {
     const userId = (await User.findOne({ where: { email } })).id;
     const idToBeUpdated = (await BlogPost.findByPk(id)).userId;
-    const now = new Date();
     if (userId !== idToBeUpdated) { return { type: 'UNAUTHORIZED', message: 'Unauthorized user' }; }
+    const now = new Date();
     const update = await BlogPost.update({ title, content, updated: now }, { where: { id } });
     return { type: null, message: update };
 };
 
-module.exports = { createBlogPost, getPostById, getAllPosts, updatePost };
+const deletePost = async (id, email) => {
+    const userId = (await User.findOne({ where: { email } })).id;
+    const post = await BlogPost.findByPk(id);
+    if (!post) return { type: 404, message: 'Post does not exist' };
+    if (userId !== post.userId) return { type: 401, message: 'Unauthorized user' };
+    await post.destroy();
+    return { type: null, message: null };
+};
+
+module.exports = { createBlogPost, getPostById, getAllPosts, updatePost, deletePost };
