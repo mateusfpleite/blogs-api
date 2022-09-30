@@ -33,6 +33,8 @@ app.get('/post/:id', tokenValidation, BlogPost.getPostById);
 
 app.put('/post/:id', validateUpdateBlogPost, tokenValidation, BlogPost.updatePost);
 
+app.delete('/post/:id', tokenValidation, BlogPost.deletePost);
+
 // ...
 
 // É importante exportar a constante `app`,
