@@ -36,4 +36,9 @@ const getUserById = async (id) => {
     return { type: null, message: result };
 };
 
-module.exports = { getUser, createUser, getAllUsers, getUserById };
+const deleteMe = async (email) => {
+    const user = await User.findOne({ where: { email } });
+    user.destroy();
+};
+
+module.exports = { getUser, createUser, getAllUsers, getUserById, deleteMe };
