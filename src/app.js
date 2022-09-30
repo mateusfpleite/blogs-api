@@ -21,6 +21,8 @@ app.get('/user', tokenValidation, User.getAllUsers);
 
 app.get('/user/:id', tokenValidation, User.getUserById);
 
+app.delete('/user/me', tokenValidation, User.deleteMe);
+
 app.post('/categories', createCategoryValidation, tokenValidation, Category.createCategory);
 
 app.get('/categories', tokenValidation, Category.getAllCategories);
@@ -28,6 +30,8 @@ app.get('/categories', tokenValidation, Category.getAllCategories);
 app.post('/post', validateBlogPostFields, tokenValidation, BlogPost.createBlogPost);
 
 app.get('/post', tokenValidation, BlogPost.getAllPosts);
+
+app.get('/post/search', tokenValidation, BlogPost.getPostsByQuery);
 
 app.get('/post/:id', tokenValidation, BlogPost.getPostById);
 
