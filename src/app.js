@@ -39,8 +39,4 @@ app.put('/post/:id', validateUpdateBlogPost, tokenValidation, BlogPost.updatePos
 
 app.delete('/post/:id', tokenValidation, BlogPost.deletePost);
 
-// ...
-
-// É importante exportar a constante `app`,
-// para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
